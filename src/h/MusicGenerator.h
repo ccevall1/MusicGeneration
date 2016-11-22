@@ -20,6 +20,7 @@ class MusicGenerator
         void Cleanup();
         void GenerateMusic();
         Chord CreateChord(MusicGenerator::RomanNumeral eChord, int nBaseNoteIndex);
+        MusicGenerator::RomanNumeral NextMajorChordProgression(MusicGenerator::RomanNumeral eChord);
         //TODO: add parameters for tweaking values
         EuclideanRhythm* GetRhythm() { return m_EuclideanRhythm; }
         Melody GetMelody() { return m_Melody; }

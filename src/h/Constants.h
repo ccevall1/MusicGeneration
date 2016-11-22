@@ -30,13 +30,13 @@ namespace Constants
     const int C_MELODIC_MINOR[] = {0, 2, 3, 5, 7, 9, 11};
 */
     // Roman Numeral Notation array
-    const int RomanNumeralVectors[7][3] = { {0,2,4},
-                                            {1,3,5},
-                                            {2,4,6},
-                                            {0,3,5},
-                                            {1,4,6},
-                                            {0,2,5},
-                                            {1,3,6}
+    const int RomanNumeralVectors[7][3] = { {0,4,7},
+                                            {2,5,9},
+                                            {4,7,11},
+                                            {5,9,0},
+                                            {7,11,4},
+                                            {9,0,4},
+                                            {11,2,5}
                                         };
 
 }

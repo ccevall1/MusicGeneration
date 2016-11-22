@@ -25,6 +25,7 @@ class Static
             cout << endl;
         }
 
+        //TODO: This really shouldn't be defined twice
         static const int NUM_NOTES = 7;
 
 };

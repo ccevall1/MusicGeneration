@@ -11,8 +11,8 @@
 
 using namespace std;
 
-static const int NUM_NOTES = 7;
-static const char* NOTE_FILE_NAMES[] = {"./audio/C.ogg", "./audio/C#.ogg", "./audio/D.ogg", "./audio/Eb.ogg", "./audio/E.ogg", "./audio/F.ogg", "./audio/Gb.ogg", "./audio/G.ogg", "./audio/A.ogg", "./audio/Bb.ogg", "./audio/B.ogg"};
+static const int NUM_NOTES = 12;
+static const char* NOTE_FILE_NAMES[] = {"./audio/C.ogg", "./audio/Db.ogg", "./audio/D.ogg", "./audio/Eb.ogg", "./audio/E.ogg", "./audio/F.ogg", "./audio/Gb.ogg", "./audio/G.ogg", "./audio/Ab.ogg", "./audio/A.ogg", "./audio/Bb.ogg", "./audio/B.ogg"};
 
 class ResourceManager
 {
