@@ -19,7 +19,6 @@ EuclideanRhythm::EuclideanRhythm(int firstNum, int secondNum)
     }
     m_vRemainder.pop_back(); // edge case where we appended 0
     recBuildRhythm(count-1);
-    m_nRhythmLength = sizeof(m_vRhythm) / sizeof(int);
  
 }
 
@@ -27,11 +26,13 @@ void EuclideanRhythm::recBuildRhythm(int it)
 {
     if (it == -1)
     {
-        m_vRhythm.push_back(0);
+        m_vRhythm.push_back(1);
+        m_nRhythmLength++;
     }
     else if (it == -2)
     {
-        m_vRhythm.push_back(1);
+        m_vRhythm.push_back(0);
+        m_nRhythmLength++;
     }
     else
     {

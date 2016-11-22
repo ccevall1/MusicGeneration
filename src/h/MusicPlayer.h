@@ -6,8 +6,10 @@
 
 #include "Sound.h"
 #include <vector>
+#include "Constants.h"
 
 using namespace std;
+using namespace Constants;
 
 class MusicPlayer
 {
@@ -15,12 +17,12 @@ class MusicPlayer
     public:
         MusicPlayer();
         void Run(float deltaTime);
-        void SetNoteBuffer(vector<Sound> buffer, int size);
+        void SetNoteBuffer(vector<Chord> buffer, int size);
         void SetRhythmBuffer(vector<int> buffer, int size);
         void SetBPM(int bpm);
 
     private:
-        vector<Sound> m_NoteBuffer;
+        vector<Chord> m_NoteBuffer;
         vector<int> m_RhythmBuffer;
         float m_fSecondsPerBeat;  // easier to handle logically, computed from BPM
         float m_fTimeStepBuffer;

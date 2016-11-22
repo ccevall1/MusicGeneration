@@ -31,6 +31,11 @@ class EuclideanRhythm
             return m_vRhythm;
         }
 
+        int GetLength()
+        {
+            return m_nRhythmLength;
+        }
+
 
     private:
         int m_nBeatCounter;

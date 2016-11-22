@@ -1,4 +1,5 @@
 #include "ResourceManager.h"
+#include "Static.h"
 
 ResourceManager::ResourceManager()
 {}

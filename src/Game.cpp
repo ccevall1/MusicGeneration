@@ -10,8 +10,9 @@ const int SCREEN_HEIGHT = 480;
 Game::Game()
 : m_gWindow(NULL),
   m_gRenderer(NULL),
-  m_ResourceManager(NULL),
-  m_MusicPlayer(NULL)
+  m_MusicGenerator(NULL),
+  m_MusicPlayer(NULL),
+  m_ResourceManager(NULL)
 {
 }
 
@@ -27,6 +28,7 @@ void Game::runGame()
     SDL_Event e;
     float deltaTime = 0;
     float fLastTime = SDL_GetTicks() / 1000.0;
+    bool bPlay = false;
 
     while (!bQuit)
     {
@@ -44,16 +46,27 @@ void Game::runGame()
                 switch(e.key.keysym.sym)
                 {
                     case SDLK_q:
+                        cout << "Goodbye!" << endl;
                         bQuit = true;
-                        printf("Goodbye!\n");
                         close();
+                        break;
+                    case SDLK_p:
+                        cout << "Setting bPlay to " << bPlay << endl;
+                        bPlay = !bPlay;
+                        break;
+                    case SDLK_n:
+                        cout << "Generating new melody" << endl;
+                        m_MusicGenerator->GenerateMusic();
+                        m_MusicPlayer->SetRhythmBuffer(m_MusicGenerator->GetRhythm()->GetRhythm(), m_MusicGenerator->GetRhythm()->GetLength());
+                        m_MusicPlayer->SetNoteBuffer(m_MusicGenerator->GetMelody(), m_MusicGenerator->GetMelodyLength());
                         break;
                 }
             }
         }
         // Update state
         deltaTime = (SDL_GetTicks() / 1000.0) - fLastTime;
-        m_MusicPlayer->Run(deltaTime);
+        if (bPlay)
+            m_MusicPlayer->Run(deltaTime);
         fLastTime = SDL_GetTicks() / 1000.0;
 
         // Draw
@@ -100,19 +113,13 @@ bool Game::init()
 
     // Other
     m_MusicPlayer = new MusicPlayer();
-    vector<Sound> temp;
-    temp.push_back(m_ResourceManager->GetNote(0));
-    temp.push_back(m_ResourceManager->GetNote(0));
-    temp.push_back(m_ResourceManager->GetNote(0));
-    temp.push_back(m_ResourceManager->GetNote(0));
-    temp.push_back(m_ResourceManager->GetNote(0));
-    temp.push_back(m_ResourceManager->GetNote(0));
+    m_MusicGenerator = new MusicGenerator(m_ResourceManager->GetAllNotes());
 
-    EuclideanRhythm rhythm = EuclideanRhythm(3,8);
+    m_MusicGenerator->GenerateMusic();
 
     m_MusicPlayer->SetBPM(200);
-    m_MusicPlayer->SetNoteBuffer(temp, 6);
-    m_MusicPlayer->SetRhythmBuffer(rhythm.GetRhythm(),8);
+    m_MusicPlayer->SetNoteBuffer(m_MusicGenerator->GetMelody(), m_MusicGenerator->GetMelodyLength());
+    m_MusicPlayer->SetRhythmBuffer(m_MusicGenerator->GetRhythm()->GetRhythm(),m_MusicGenerator->GetRhythm()->GetLength());
 
     return true;
 }
@@ -131,4 +138,5 @@ void Game::close()
 
     delete m_ResourceManager;
     delete m_MusicPlayer;
+    delete m_MusicGenerator;
 }

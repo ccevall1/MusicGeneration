@@ -11,8 +11,8 @@
 
 using namespace std;
 
-static const int NUM_NOTES = 10;
-static const char* NOTE_FILE_NAMES[] = {"./audio/C.wav", "./audio/C#.wav", "./audio/D.wav", "./audio/Eb.wav", "./audio/E.wav", "./audio/F.wav", "./audio/Gb.wav", "./audio/G.wav", "./audio/A.wav", "./audio/Bb.wav"};
+static const int NUM_NOTES = 7;
+static const char* NOTE_FILE_NAMES[] = {"./audio/C.ogg", "./audio/C#.ogg", "./audio/D.ogg", "./audio/Eb.ogg", "./audio/E.ogg", "./audio/F.ogg", "./audio/Gb.ogg", "./audio/G.ogg", "./audio/A.ogg", "./audio/Bb.ogg", "./audio/B.ogg"};
 
 class ResourceManager
 {
@@ -22,6 +22,7 @@ class ResourceManager
         void Load();
         void Unload();
         Sound GetNote(int index) { return m_vNotes[index]; }
+        vector<Sound> GetAllNotes() { return m_vNotes; }
 
     private:
         vector<Sound> m_vNotes;

@@ -25,6 +25,8 @@ class Static
             cout << endl;
         }
 
+        static const int NUM_NOTES = 7;
+
 };
 
 #endif

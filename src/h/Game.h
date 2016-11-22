@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include <SDL_mixer.h>
 
-#include "ResourceManager.h"
+#include "MusicGenerator.h"
 #include "MusicPlayer.h"
-#include "EuclideanRhythm.h"
+#include "ResourceManager.h"
 
 class Game
 {
@@ -20,7 +20,9 @@ class Game
     private:
         SDL_Window* m_gWindow;
         SDL_Renderer* m_gRenderer;
-        ResourceManager* m_ResourceManager;
+
+        MusicGenerator* m_MusicGenerator;
         MusicPlayer* m_MusicPlayer;
+        ResourceManager* m_ResourceManager;
 
 };
