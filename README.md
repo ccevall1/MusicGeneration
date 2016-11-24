@@ -3,19 +3,27 @@
 A simple test of some ideas for pseudo-randomly generated music.
 Long term goals is dynamically generated to respond to messages
 from a game or similar program.
+
 DONE:
+
     * Euclidean Rhythm algorithm to generate a beat consisting of an odd
        number of pulses and either 8 or 16 beats
+
     * MusicGenerator class currently selects random notes from the ResourceManager's
        scale and MusicPlayer plays these notes sequentially on each pulse
+
     * Generate two-note chords (3-note possible but VM seems to struggle) using state machine
         to randomly determine which chord to transition to next
+        --Randomly choose which two notes from chord to play for variety
 
 TODO:
-    * Map which stores chords belonging to a key to choose from
-        --Use Roman Numeral notation as the key and a vector of Sounds as the value
+
     * Dynamically alter the BPM value based on "Player speed"
         --For now no real game, but can simulate acceleration and deceleration easily
+
+    * Map which stores chords belonging to a key to choose from
+        --Use Roman Numeral notation as the key and a vector of Sounds as the value
+
     * Check for memory leaks and optimize because VirtualBox is not super happy with this
 
 OTHER:

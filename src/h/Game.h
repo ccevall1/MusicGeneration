@@ -3,10 +3,12 @@
 #include <SDL.h>
 #include <stdio.h>
 #include <SDL_mixer.h>
+#include <SDL_image.h>
 
 #include "MusicGenerator.h"
 #include "MusicPlayer.h"
 #include "ResourceManager.h"
+#include "Player.h"
 
 class Game
 {
@@ -23,6 +25,9 @@ class Game
 
         MusicGenerator* m_MusicGenerator;
         MusicPlayer* m_MusicPlayer;
+
+        Player* m_Player;
+
         ResourceManager* m_ResourceManager;
 
 };

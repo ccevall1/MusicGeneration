@@ -3,6 +3,7 @@ OBJS = \
     EuclideanRhythm.cpp \
     MusicGenerator.cpp \
     MusicPlayer.cpp \
+    Player.cpp \
     ResourceManager.cpp \
     Sound.cpp \
 

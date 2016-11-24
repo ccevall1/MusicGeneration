@@ -2,9 +2,30 @@
 #define CONSTANTS_H
 
 #include <vector>
+#include <map>
+#include <SDL.h>
+#include "Sound.h"
+
+typedef struct foo
+{
+    SDL_Texture* m_tTexture;
+    int width;
+    int height;
+    foo(SDL_Texture* texture, int w, int h)
+    : m_tTexture(texture), width(w), height(h)
+    {}
+    ~foo()
+    {
+        SDL_DestroyTexture(m_tTexture);
+    }
+} Sprite;
 
 namespace Constants
 {
+
+    //Screen dimension constants
+    const int SCREEN_WIDTH = 640;
+    const int SCREEN_HEIGHT = 480;
 
     typedef std::vector<Sound> Chord;
     typedef std::vector<Chord> Melody;
@@ -39,6 +60,9 @@ namespace Constants
                                             {11,2,5}
                                         };
 
+
+    const int PLAYER_SPEED = 200;
+    const int PLAYER_ACCEL = 1000;
 }
 
 #endif

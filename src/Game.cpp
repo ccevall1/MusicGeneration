@@ -1,10 +1,8 @@
 // Test for generating rhythms and playing them using CFugue library
 
 #include "Game.h"
+#include "Constants.h"
 
-//Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
 
 // Empty constructor for compiler
 Game::Game()
@@ -12,6 +10,7 @@ Game::Game()
   m_gRenderer(NULL),
   m_MusicGenerator(NULL),
   m_MusicPlayer(NULL),
+  m_Player(NULL),
   m_ResourceManager(NULL)
 {
 }
@@ -62,16 +61,26 @@ void Game::runGame()
                         break;
                 }
             }
+            m_Player->HandleEvent(e);
         }
         // Update state
         deltaTime = (SDL_GetTicks() / 1000.0) - fLastTime;
+
         if (bPlay)
             m_MusicPlayer->Run(deltaTime);
+        m_Player->Update(deltaTime);
+
         fLastTime = SDL_GetTicks() / 1000.0;
 
         // Draw
         SDL_SetRenderDrawColor(m_gRenderer,0xFF,0xFF,0xFF,0xFF);
         SDL_RenderClear(m_gRenderer);
+
+        //BG
+        SDL_RenderCopy(m_gRenderer, m_ResourceManager->GetSprite("BACKGROUND_SPRITE")->m_tTexture, NULL, NULL);
+
+        m_Player->Draw();
+
         SDL_RenderPresent(m_gRenderer);
 
     }
@@ -91,7 +100,7 @@ bool Game::init()
     }
 
     //Create window
-    m_gWindow = SDL_CreateWindow("SDL Music Test",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,SCREEN_WIDTH,SCREEN_HEIGHT,SDL_WINDOW_SHOWN);
+    m_gWindow = SDL_CreateWindow("SDL Music Test",SDL_WINDOWPOS_UNDEFINED,SDL_WINDOWPOS_UNDEFINED,Constants::SCREEN_WIDTH,Constants::SCREEN_HEIGHT,SDL_WINDOW_SHOWN);
     if( m_gWindow == NULL )
     {
         printf( "Window could not be created! SDL_Error: %s\n", SDL_GetError() );
@@ -108,7 +117,7 @@ bool Game::init()
     }
 
     // Load music files
-    m_ResourceManager = new ResourceManager();
+    m_ResourceManager = new ResourceManager(m_gRenderer);
     m_ResourceManager->Load();
 
     // Other
@@ -120,6 +129,11 @@ bool Game::init()
     m_MusicPlayer->SetBPM(200);
     m_MusicPlayer->SetNoteBuffer(m_MusicGenerator->GetMelody(), m_MusicGenerator->GetMelodyLength());
     m_MusicPlayer->SetRhythmBuffer(m_MusicGenerator->GetRhythm()->GetRhythm(),m_MusicGenerator->GetRhythm()->GetLength());
+
+    // Initialize Player
+    vector<float> vInitPosition = {0,Constants::SCREEN_HEIGHT-64};
+    vector<float> vInitRotation = {0,0};
+    m_Player = new Player(m_gRenderer, m_ResourceManager->GetSprite("PLAYER_SPRITE"), vInitPosition, vInitRotation, Constants::PLAYER_SPEED, Constants::PLAYER_ACCEL);
 
     return true;
 }
@@ -134,6 +148,7 @@ void Game::close()
 
     Mix_CloseAudio();
 
+    IMG_Quit();
     SDL_Quit();
 
     delete m_ResourceManager;
